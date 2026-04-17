@@ -2,8 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "../include/workingDir.h"
-#include "../include/parser.h"
+#include "parser.h"
 #include "lexer.h"
 
 void execute(){

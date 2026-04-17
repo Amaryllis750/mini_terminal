@@ -1,3 +1,6 @@
+#ifndef LEXER_HEADER_H
+#define LEXER_HEADER_H
+
 typedef enum{
     TOK_DOUBLE_QUOTED_WORD,
     TOK_BARE_WORD,
@@ -29,3 +32,5 @@ void lexer_init(Lexer *l, char *input);
 void reset_lexer(Lexer *l);
 
 Token get_next_token(Lexer *l);
+
+#endif

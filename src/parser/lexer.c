@@ -17,17 +17,23 @@ void reset_lexer(Lexer *l){
 
 Token get_next_token(Lexer *lexer)
 {
+
     // skip whitespace
     while (lexer->input[lexer->pos] == ' ' || lexer->input[lexer->pos] == '\t')
         lexer->pos++;
 
     int start = lexer->pos; // save the start position before consuming
+    
 
     if (lexer->input[lexer->pos] == '\0')
         return (Token){TOK_EOF, "\0", lexer->pos};
     
-    if(lexer->input[lexer->pos] == '\n')
-        return (Token){TOK_NEWLINE, "\n", lexer->pos};
+    if(lexer->input[lexer->pos] == '\n'){
+        Token new_line = {TOK_NEWLINE, "\n", lexer->pos};
+        lexer->pos++;
+        return new_line;
+    }
+        
 
     // tokenize quoted words
     if (lexer->input[lexer->pos] == '"' || lexer->input[lexer->pos] == '\'') {
