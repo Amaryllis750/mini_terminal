@@ -1,0 +1,6 @@
+#ifndef TERMINAL_LIIMT_H
+#define TERMINAL_LIMIT_H
+
+int INPUT_LIMIT = 4096;
+
+#endif

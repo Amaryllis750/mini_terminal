@@ -25,6 +25,7 @@ typedef struct {
 typedef struct{
     char *input;
     int pos;
+    int start;
     char *err;
 } Lexer;
 
