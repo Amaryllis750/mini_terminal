@@ -38,11 +38,9 @@ Token get_next_token(Lexer *lexer)
     // tokenize quoted words
     if (lexer->input[lexer->pos] == '"' || lexer->input[lexer->pos] == '\'') {
         char quote = lexer->input[lexer->pos];
-        printf("I have found a %c\n", lexer->input[lexer->pos]);
 
         do{
             lexer->pos++;
-            printf("I have found a %c\n", lexer->input[lexer->pos]);
         }
         while (lexer->input[lexer->pos] != quote && lexer->input[lexer->pos] != '\0');
 
@@ -54,7 +52,7 @@ Token get_next_token(Lexer *lexer)
 
         lexer->pos++; // skip the closing quote
         int length = lexer->pos - lexer->start;
-        char *token_value = strndup(lexer->input + lexer->start, length);
+        char *token_value = strndup(lexer->input + lexer->start, length); // remember to free all these
 
         Token t = {};
         t.type     = (quote == '"') ? TOK_DOUBLE_QUOTED_WORD : TOK_SINGLE_QUOTED_WORD;
@@ -63,14 +61,14 @@ Token get_next_token(Lexer *lexer)
         return t;
     }
 
-    // consume until whitespace or end of input
+    // consume until whitespace or end of input or tab
     while (lexer->input[lexer->pos] != ' '  &&
            lexer->input[lexer->pos] != '\t' &&
            lexer->input[lexer->pos] != '\0')
         lexer->pos++;
 
     int length = lexer->pos - lexer->start;
-    char *token_value = strndup(lexer->input + lexer->start, length);
+    char *token_value = strndup(lexer->input + lexer->start, length);   // remember to free all this
 
     Token t = {};
     t.position = lexer->start + 1;

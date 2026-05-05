@@ -30,7 +30,6 @@ int main()
     {
         // get the state of the parser
         ShellMode mode = parser.mode;
-        printf("We are in %s mode\n", mode == PS1 ? "PS1" : "PS2");
         if (mode == PS1)
         {
             if (parser.root_node)
@@ -45,6 +44,7 @@ int main()
 
             // parse the new input of the parser and the lexer
             lexer_init(&lexer, input);  // initialize the lexer
+
             parse_input(input, &parser, &lexer);
         }
         else
@@ -54,14 +54,17 @@ int main()
             
             // get the extended input
             char extend[1024];
-            fgets(input, 1024, stdin);
+            fgets(extend, 1024, stdin);
             char *extended_input = extend_input(input, extend);
+            if(extended_input == NULL) {
+                printf("Buffer exceeded");
+                continue;
+            }
 
             // let the lexer point to this extended input
-            lexer.input = extended_input;   // this might be redundant though
+            lexer.input = input;   // this might be redundant though
             lexer.pos = lexer.start;
-
-            parse_input(extended_input, &parser, &lexer);
+            parse_input(input, &parser, &lexer);
         }
     }
 

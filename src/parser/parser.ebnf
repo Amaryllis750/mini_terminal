@@ -1,7 +1,22 @@
 Start = SequencedCommand
 SequencedCommand = SequencedCommand ';' PipedCommand | PipedCommand
-PipedCommand = PipedCommand '|' RedirectedProgram | RedirectedProgram
-RedirectedProgram = RedirectedProgram REDIRECTION WORD | Command
+PipedCommand = PipedCommand '|' RedirectedCommand | RedirectedCommand
+RedirectedCommand = RedirectedCommand REDIRECTION Command | Command
+Command = WORD WORD*
+
+REDIRECTION = '>' | '>>' | '<' | '2>'
+WORD = BARE_WORD | SINGLE_QUOTED | DOUBLE_QUOTED
+BARE_WORD = WORD_CHAR+
+SINGLE_QUOTED = '\'' QUOTED_CHAR* '\''
+DOUBLE_QUOTED = '"' QUOTED_CHAR* '"'
+QUOTED_CHAR = WORD_CHAR | ' '
+WORD_CHAR = [a-zA-Z0-9] | '-' | '_' | '.' | '/' | '@' | '#' | '%' | '+'
+
+(* This is the grammar above written in iterative format *)
+Start = SequencedCommand
+SequencedCommand = PipedCommand (';' PipedCommand)*
+PipedCommand = RedirectedProgram ('|' RedirectedProgram)*
+RedirectedProgram = Command (REDIRECTION WORD)*
 Command = WORD WORD*
 REDIRECTION = '>' | '>>' | '<' | '2>'
 WORD = BARE_WORD | SINGLE_QUOTED | DOUBLE_QUOTED
