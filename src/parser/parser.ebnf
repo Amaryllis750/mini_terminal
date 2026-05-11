@@ -12,11 +12,27 @@ DOUBLE_QUOTED = '"' QUOTED_CHAR* '"'
 QUOTED_CHAR = WORD_CHAR | ' '
 WORD_CHAR = [a-zA-Z0-9] | '-' | '_' | '.' | '/' | '@' | '#' | '%' | '+'
 
-(* This is the grammar above written in iterative format *)
+(*
+* The grammar above is left recursive to implement left associativity in our grammar
+* I will now remove the left recursion
+*)
+
+(*
+* Left Recursion can be seen as 
+A -> Aa | b     ----- Implements left recursion
+Where A - non terminal and (a, b) are terminals
+
+You can remove the left recursion by
+A -> bA'
+A' -> aA' | <empty_string>
+OR
+A -> ba*
+*)
+
 Start = SequencedCommand
 SequencedCommand = PipedCommand (';' PipedCommand)*
-PipedCommand = RedirectedProgram ('|' RedirectedProgram)*
-RedirectedProgram = Command (REDIRECTION WORD)*
+PipedCommand = RedirectedCommand ('|' RedirectedCommand)*
+RedirectedCommand = Command (REDIRECTION Command)*
 Command = WORD WORD*
 REDIRECTION = '>' | '>>' | '<' | '2>'
 WORD = BARE_WORD | SINGLE_QUOTED | DOUBLE_QUOTED
