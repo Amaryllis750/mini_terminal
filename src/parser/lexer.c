@@ -54,7 +54,7 @@ Token get_next_token(Lexer *lexer)
         int length = lexer->pos - lexer->start;
         char *token_value = strndup(lexer->input + lexer->start, length); // remember to free all these
 
-        Token t = {};
+        Token t = {0};
         t.type     = (quote == '"') ? TOK_DOUBLE_QUOTED_WORD : TOK_SINGLE_QUOTED_WORD;
         t.value    = token_value;
         t.position = lexer->start + 1;
@@ -70,7 +70,7 @@ Token get_next_token(Lexer *lexer)
     int length = lexer->pos - lexer->start;
     char *token_value = strndup(lexer->input + lexer->start, length);   // remember to free all this
 
-    Token t = {};
+    Token t = {0};
     t.position = lexer->start + 1;
 
     if (strcmp(token_value, "|") == 0) {

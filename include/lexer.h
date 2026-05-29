@@ -14,6 +14,7 @@ typedef enum{
     TOK_EOF, // end of line
     INCOMPLETE_TOKEN,
     TOK_NEWLINE,
+    TOK_NONE, // this is to signify a null token
 } TokenType;
 
 typedef struct {

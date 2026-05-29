@@ -23,7 +23,8 @@ int main()
 {
     char input[INPUT_LIMIT];
 
-    Parser parser = {PS1, NULL};
+    Token empty_token = {TOK_NONE, NULL, -1};
+    Parser parser = {PS1, NULL, empty_token, 0};  // set the error to OK
     Lexer lexer = {NULL, 0, 0, NULL};
 
     while (1)
@@ -32,7 +33,7 @@ int main()
         ShellMode mode = parser.mode;
         if (mode == PS1)
         {
-            if (parser.root_node)
+            if (parser.root)
             {
                 execute();
             }

@@ -16,6 +16,10 @@ OBJS := $(patsubst $(SRC)/%.c, $(BUILD)/%.o, $(SRCS))
 main: $(OBJS)
 	$(CC) $^ -o $(BIN)/$@
 
+test: $(wildcard $(SRC)/**/parser.c) $(wildcard $(SRC)/**/lexer.c) test/test.c
+	$(CC) $(CCFLAGS) $^ -o bin/test
+
+
 $(BUILD)/%.o: $(SRC)/%.c
 	mkdir -p $(dir $@)
 	$(CC) -c $(CCFLAGS) $< -o $@
