@@ -17,7 +17,7 @@ typedef struct{
 
 typedef struct{
     Token redirection;
-    Command command;
+    Word stream;
 } RedirectedArray;
 
 // RedirectedCommand = Command (REDIRECTION Command)*

@@ -29,7 +29,7 @@ typedef struct{
     // Error handling
     ParserError error;
     Token  *err_token;
-    char err_msg[128];
+    char *err_msg;
 
 } Parser;
 
@@ -46,4 +46,7 @@ Word get_word();
 void reset_parser(Parser *parser);
 
 
-#endif  
+Token peek(Parser *p);
+Token consume(Parser *p, Lexer *l);
+
+#endif

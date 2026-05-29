@@ -32,7 +32,7 @@ A -> ba*
 Start = SequencedCommand
 SequencedCommand = PipedCommand (';' PipedCommand)*
 PipedCommand = RedirectedCommand ('|' RedirectedCommand)*
-RedirectedCommand = Command (REDIRECTION Command)*
+RedirectedCommand = Command (REDIRECTION WORD)*
 Command = WORD WORD*
 REDIRECTION = '>' | '>>' | '<' | '2>'
 WORD = BARE_WORD | SINGLE_QUOTED | DOUBLE_QUOTED

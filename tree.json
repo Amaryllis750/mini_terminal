@@ -1,16 +1,30 @@
 {
-  "command": {
-    "program": {
-      "word": {
-        "value": "ps",
-        "position": 1
-      }
-    },
-    "args": [
-      {
+  "redirectedCommand": {
+    "command": {
+      "program": {
         "word": {
-          "value": "aux",
-          "position": 4
+          "value": "echo",
+          "position": 1
+        }
+      },
+      "args": [
+        {
+          "word": {
+            "value": "daniel",
+            "position": 6
+          }
+        }
+      ]
+    },
+    "redirectedArray": [
+      {
+        "token": {
+          "value": ">",
+          "position": 13
+        },
+        "word": {
+          "value": "tex.sf",
+          "position": 15
         }
       }
     ]

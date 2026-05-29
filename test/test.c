@@ -103,7 +103,7 @@ void serialize_rcommand(RedirectedCommand r, FILE *file)
         {
             fprintf(file, "{");
             fprintf(file, "token: {value: \"%s\", position: %d},", r.r_array[i].redirection.value, r.r_array[i].redirection.position);
-            serialize_command(r.r_array[i].command, file);
+            serialize_word(r.r_array[i].stream, file);
             fprintf(file, "}");
             if (i != (r.r_array_size - 1))
                 fprintf(file, ",");
@@ -146,6 +146,8 @@ int main()
         return 1;
     fprintf(out_stream, "{\n");
 
+ 
+    parser.current_token = get_next_token(&lexer);
     // find which node they wish to test
     printf("Which node on the AST do you wish to start from? \n");
     printf("1. SequencedCommand\n");
