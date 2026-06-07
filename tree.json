@@ -1,4 +1,11 @@
 {
-redirectedCommand: {command: {program: {word: {value: "lkasjdf",position: 1}},args: [{word: {value: "sdfj",position: 9}}]},redirectedArray: [{token: {value: ">", position: 14},word: {value: "sdkfj
-",position: 16}}]}
+sequencedCommand: {
+pipedCommand: {
+redirectedCommand: {command: {program: {word: {value: "sdlfkj",position: 1}},args: [{word: {value: "dslfj",position: 8}}]}},pipedArray: [
+{token: {value: "|", position: 14},redirectedCommand: {command: {program: {word: {value: "dslkfj",position: 16}}}}}]
+},sequencedArray: [
+{token: {value: ";", position: 23},pipedCommand: {
+redirectedCommand: {command: {program: {word: {value: "sdklfj
+",position: 25}}}}}}]
+}
 }
