@@ -17,7 +17,7 @@ main: $(OBJS)
 	$(CC) $^ -o $(BIN)/$@
 
 test: $(wildcard $(SRC)/**/parser.c) $(wildcard $(SRC)/**/lexer.c) test/test.c
-	$(CC) $(CCFLAGS) $^ -o bin/test
+	$(CC) $(CCFLAGS) -fsanitize=address $^ -o bin/test
 
 
 $(BUILD)/%.o: $(SRC)/%.c

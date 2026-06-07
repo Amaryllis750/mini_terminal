@@ -127,9 +127,9 @@ void serialize_sarray_item(SequencedArray sa, FILE *file)
 
 int main()
 {
-    printf("Starting Test for Parser...\n");
+    puts("Starting Test for Parser...");
 
-    printf("Initializing Parser and Lexer...\n");
+    puts("Initializing Parser and Lexer...");
     Token empty_token = {TOK_NONE, NULL, -1};
     Parser parser = {PS1, NULL, empty_token, 0}; // set the error to OK
     Lexer lexer = {NULL, 0, 0, NULL};
@@ -140,7 +140,7 @@ int main()
 
     lexer_init(&lexer, input);
 
-    printf("Creating output stream...");
+    puts("Creating output stream...");
     FILE *out_stream = fopen("tree.json", "w"); // note: "w" not 'w'
     if (out_stream == NULL)
         return 1;
@@ -149,11 +149,11 @@ int main()
  
     parser.current_token = get_next_token(&lexer);
     // find which node they wish to test
-    printf("Which node on the AST do you wish to start from? \n");
-    printf("1. SequencedCommand\n");
-    printf("2. PipedCommand\n");
-    printf("3. RedirectedCommand\n");
-    printf("4. Command\n");
+    puts("Which node on the AST do you wish to start from?");
+    puts("1. SequencedCommand");
+    puts("2. PipedCommand");
+    puts("3. RedirectedCommand");
+    puts("4. Command");
 
     char choice[2];
     fgets(choice, 2, stdin);
@@ -197,6 +197,9 @@ int main()
 
     fprintf(out_stream, "\n}");
     fclose(out_stream);
+
+    // reset your lexer
+    reset_lexer(&lexer);
 
     return 0;
 }

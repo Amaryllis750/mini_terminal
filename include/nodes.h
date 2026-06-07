@@ -51,4 +51,11 @@ typedef struct {
     size_t s_array_size;
 } SequencedCommand;
 
+
+void free_word(Word w);
+void free_command(Command c);
+void free_redirected_command(RedirectedCommand r);
+void free_piped_command(PipedCommand p);
+void free_tree(SequencedCommand *s);
+
 #endif

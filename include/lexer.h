@@ -2,6 +2,7 @@
 #define LEXER_HEADER_H
 
 typedef enum{
+    TOK_NONE, // this is to signify a null token
     TOK_DOUBLE_QUOTED_WORD,
     TOK_BARE_WORD,
     TOK_SINGLE_QUOTED_WORD,
@@ -14,7 +15,6 @@ typedef enum{
     TOK_EOF, // end of line
     INCOMPLETE_TOKEN,
     TOK_NEWLINE,
-    TOK_NONE, // this is to signify a null token
 } TokenType;
 
 typedef struct {

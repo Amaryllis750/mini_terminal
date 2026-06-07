@@ -1,32 +1,5 @@
 {
-  "redirectedCommand": {
-    "command": {
-      "program": {
-        "word": {
-          "value": "echo",
-          "position": 1
-        }
-      },
-      "args": [
-        {
-          "word": {
-            "value": "daniel",
-            "position": 6
-          }
-        }
-      ]
-    },
-    "redirectedArray": [
-      {
-        "token": {
-          "value": ">",
-          "position": 13
-        },
-        "word": {
-          "value": "tex.sf",
-          "position": 15
-        }
-      }
-    ]
-  }
+pipedCommand: {
+redirectedCommand: {command: {program: {word: {value: "sdlkfj",position: 1}},args: [{word: {value: "sldkjf",position: 8}},{word: {value: "sdf
+",position: 15}}]}}}
 }
