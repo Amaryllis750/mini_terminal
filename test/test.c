@@ -170,24 +170,28 @@ int main()
     {
         SequencedCommand scommand = sequence_command(&parser, &lexer);
         serialize_scommand(scommand, out_stream);
+        free_tree(scommand);
         break;
     }
     case 2:
     {
         PipedCommand p = piped_command(&parser, &lexer);
         serialize_pcommand(p, out_stream);
+        free_piped_command(p);
         break;
     }
     case 3:
     {
         RedirectedCommand r = redirected_command(&parser, &lexer);
         serialize_rcommand(r, out_stream);
+        free_redirected_command(r);
         break;
     }
     case 4:
     {
         Command c = get_command(&parser, &lexer);
         serialize_command(c, out_stream);
+        free_command(c);
         break;
     }
     default:

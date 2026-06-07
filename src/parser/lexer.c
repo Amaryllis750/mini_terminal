@@ -75,32 +75,27 @@ Token get_next_token(Lexer *lexer)
 
     if (strcmp(token_value, "|") == 0) {
         t.type  = TOK_PIPE;
-        t.value = "|";
     }
     else if (strcmp(token_value, ">") == 0) {
         t.type  = TOK_REDIRECT_STDOUT;
-        t.value = ">";
     }
     else if (strcmp(token_value, "<") == 0) {
         t.type  = TOK_REDIRECT_STDIN;
-        t.value = "<";
     }
     else if (strcmp(token_value, "2>") == 0) {
         t.type  = TOK_REDIRECT_STDERR;
-        t.value = "2>";
     }
     else if (strcmp(token_value, ">>") == 0) {
         t.type  = TOK_APPEND;
-        t.value = ">>";
     }
     else if (strcmp(token_value, ";") == 0) {
         t.type  = TOK_SEQUENCE;
-        t.value = ";";
     }
     else {
         t.type  = TOK_BARE_WORD;
-        t.value = token_value;
     }
 
+
+    t.value = token_value;
     return t;
 }

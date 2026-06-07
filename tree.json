@@ -1,5 +1,4 @@
 {
-pipedCommand: {
-redirectedCommand: {command: {program: {word: {value: "sdlkfj",position: 1}},args: [{word: {value: "sldkjf",position: 8}},{word: {value: "sdf
-",position: 15}}]}}}
+redirectedCommand: {command: {program: {word: {value: "lkasjdf",position: 1}},args: [{word: {value: "sdfj",position: 9}}]},redirectedArray: [{token: {value: ">", position: 14},word: {value: "sdkfj
+",position: 16}}]}
 }

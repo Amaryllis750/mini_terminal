@@ -60,19 +60,19 @@ void free_piped_command(PipedCommand p){
     return ;
 }
 
-void free_tree(SequencedCommand *s){
+void free_tree(SequencedCommand s){
     // parse the tree and remove clear all dynamically allocated memory
-    free_piped_command(s->p_command);
+    free_piped_command(s.p_command);
 
-    if(s->s_array_size > 0){
+    if(s.s_array_size > 0){
         int i;
-        for (i = 0; i < s->s_array_size; i++){
-            SequencedArray s_item = s->s_array[i];
+        for (i = 0; i < s.s_array_size; i++){
+            SequencedArray s_item = s.s_array[i];
             free(s_item.sequence.value);
             free_piped_command(s_item.p_command);
         }
 
-        free(s->s_array);
+        free(s.s_array);
     }
 
     return ;

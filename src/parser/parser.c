@@ -40,7 +40,21 @@ SequencedCommand sequence_command(Parser *parser, Lexer *lexer)
     }
 
     // parser logic here...
+    while(peek(parser).type == TOK_SEQUENCE){
+        SequencedArray s_array;
+        Token sequence = consume(parser, lexer);
+        s_array.sequence = sequence;
 
+        PipedCommand p = piped_command(parser, lexer);
+        if(parser->error != PARSER_OK){
+            return s;
+        }
+
+        s.p_command = p;
+        s.s_array_size++;
+        s.s_array = realloc(s.s_array, (s.s_array_size) * sizeof(SequencedArray));
+        s.s_array[(s.s_array_size - 1)] = s_array;
+    }
     return s;
 }
 

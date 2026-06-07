@@ -16,9 +16,8 @@ OBJS := $(patsubst $(SRC)/%.c, $(BUILD)/%.o, $(SRCS))
 main: $(OBJS)
 	$(CC) $^ -o $(BIN)/$@
 
-test: $(wildcard $(SRC)/**/parser.c) $(wildcard $(SRC)/**/lexer.c) test/test.c
+test: $(wildcard $(SRC)/**/parser.c) $(wildcard $(SRC)/**/lexer.c) $(wildcard $(SRC)/**/nodes.c) test/test.c
 	$(CC) $(CCFLAGS) -fsanitize=address $^ -o bin/test
-
 
 $(BUILD)/%.o: $(SRC)/%.c
 	mkdir -p $(dir $@)
