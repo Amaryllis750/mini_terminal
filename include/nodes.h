@@ -8,16 +8,17 @@ typedef struct{
 }Word;
 
 // Command = WORD WORD*
+// A word is essentially a token
 typedef struct{
-    Word program;
-    Word *args; // pointer to an array of Words
+    Token program;
+    Token *args; // pointer to an array of tokens
     size_t arg_count;
 } Command;
 
 
 typedef struct{
     Token redirection;
-    Word stream;
+    Token stream;
 } RedirectedArray;
 
 // RedirectedCommand = Command (REDIRECTION Command)*
@@ -52,7 +53,7 @@ typedef struct {
 } SequencedCommand;
 
 
-void free_word(Word w);
+void free_token(Token w);
 void free_command(Command c);
 void free_redirected_command(RedirectedCommand r);
 void free_piped_command(PipedCommand p);

@@ -9,7 +9,7 @@ void serialize_scommand(SequencedCommand s, FILE *f);
 void serialize_pcommand(PipedCommand s, FILE *f);
 void serialize_rcommand(RedirectedCommand r, FILE *f);
 void serialize_command(Command c, FILE *f);
-void serialize_word(Word w, FILE *f);
+void serialize_token(Token w, FILE *f);
 
 void serialize_sarray_item(SequencedArray sa, FILE *f);
 void serialize_parray_item(PipedArray pa, FILE *f);
@@ -58,11 +58,11 @@ void serialize_pcommand(PipedCommand p_command, FILE *file)
     fprintf(file, "}");
 }
 
-void serialize_word(Word w, FILE *file)
+void serialize_token(Token t, FILE *file)
 {
-    fprintf(file, "word: {");
-    fprintf(file, "value: \"%s\",", w.word.value);
-    fprintf(file, "position: %d", w.word.position);
+    fprintf(file, "tord: {");
+    fprintf(file, "value: \"%s\",", t.value);
+    fprintf(file, "position: %d", t.position);
     fprintf(file, "}");
 }
 
@@ -70,7 +70,7 @@ void serialize_command(Command c, FILE *file)
 {
     fprintf(file, "command: {");
     fprintf(file, "program: {");
-    serialize_word(c.program, file);
+    serialize_token(c.program, file);
     fprintf(file, "}");
     if (c.arg_count > 0)
     {
@@ -80,7 +80,7 @@ void serialize_command(Command c, FILE *file)
         for (i = 0; i < c.arg_count; i++)
         {
             fprintf(file, "{");
-            serialize_word(c.args[i], file);
+            serialize_token(c.args[i], file);
             fprintf(file, "}");
             if (i != (c.arg_count - 1))
                 fprintf(file, ",");
@@ -103,7 +103,7 @@ void serialize_rcommand(RedirectedCommand r, FILE *file)
         {
             fprintf(file, "{");
             fprintf(file, "token: {value: \"%s\", position: %d},", r.r_array[i].redirection.value, r.r_array[i].redirection.position);
-            serialize_word(r.r_array[i].stream, file);
+            serialize_token(r.r_array[i].stream, file);
             fprintf(file, "}");
             if (i != (r.r_array_size - 1))
                 fprintf(file, ",");

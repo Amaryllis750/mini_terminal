@@ -79,7 +79,7 @@ PipedCommand piped_command(Parser *parser, Lexer *lexer)
         if(parser->error != PARSER_OK){
             return p;
         }
-        if(r.command.program.word.value == NULL){
+        if(r.command.program.value == NULL){
             // you should enter a PS2 mode here;
             parser->mode = PS2;
             return p;
@@ -125,7 +125,7 @@ RedirectedCommand redirected_command(Parser *parser, Lexer *lexer)
             parser->err_token = &parser->current_token;
         }
 
-        Word stream = get_word(consume(parser, lexer));
+        Token stream = consume(parser, lexer);
         RedirectedArray r_array = {r_op, stream};
         r_command.r_array_size++;
         r_command.r_array = realloc(r_command.r_array, (r_command.r_array_size) * sizeof(RedirectedArray));
@@ -149,9 +149,7 @@ Command get_command(Parser *parser, Lexer *lexer)
         parser->err_token = &parser->current_token;
         return command;
     }
-
-    Word program = get_word(consume(parser, lexer));
-    command.program = program;
+    command.program = consume(parser, lexer);
 
     while (peek(parser).type == TOK_BARE_WORD ||
            peek(parser).type == TOK_DOUBLE_QUOTED_WORD ||
@@ -161,7 +159,7 @@ Command get_command(Parser *parser, Lexer *lexer)
 
         command.arg_count++;
         command.args = realloc(command.args, (command.arg_count) * sizeof(Word));
-        command.args[command.arg_count - 1] = get_word(t);
+        command.args[command.arg_count - 1] = t;
     }
 
     return command;

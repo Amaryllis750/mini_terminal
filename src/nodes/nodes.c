@@ -3,20 +3,20 @@
 #include "nodes.h"
 
 
-void free_word(Word w){
-    free(w.word.value);
+void free_token(Token t){
+    free(t.value);
 
     return;
 }
 
 void free_command(Command c){
-    free_word(c.program);
+    free_token(c.program);
 
     if(c.arg_count > 0){
         int i;
         for(i=0;i<c.arg_count;i++){
-            Word arg = c.args[i];
-            free_word(arg);
+            Token arg = c.args[i];
+            free_token(arg);
         }
 
         free(c.args);
@@ -34,7 +34,7 @@ void free_redirected_command(RedirectedCommand r){
             RedirectedArray r_item = r.r_array[i];
             free(r_item.redirection.value);
 
-            free_word(r_item.stream);
+            free_token(r_item.stream);
         }
 
         free(r.r_array);
