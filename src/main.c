@@ -46,7 +46,11 @@ int main()
             // parse the new input of the parser and the lexer
             lexer_init(&lexer, input);  // initialize the lexer
 
-            parse_input(input, &parser, &lexer);
+            init_parser(&parser, &lexer);
+            SequencedCommand s_command = sequence_command(&parser, &lexer);
+            if(parser.error != PARSER_OK){
+                exit(1); // there was an error
+            }
         }
         else
         {
@@ -64,8 +68,8 @@ int main()
 
             // let the lexer point to this extended input
             lexer.input = input;   // this might be redundant though
-            lexer.pos = lexer.start;
-            parse_input(input, &parser, &lexer);
+            //TODO you are also to free the memory here and start again
+            sequence_command(&parser, &lexer);
         }
     }
 

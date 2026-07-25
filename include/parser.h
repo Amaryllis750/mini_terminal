@@ -9,6 +9,8 @@ typedef enum {
     PS2
 } ShellMode;
 
+#define SHOULD_ABORT(parser) ((parser)->error != PARSER_OK || (parser)->mode == PS2)
+
 
 typedef enum {
     PARSER_OK = 0,
@@ -40,13 +42,15 @@ SequencedCommand sequence_command(Parser *p, Lexer *l);
 PipedCommand piped_command(Parser *p, Lexer *l);
 RedirectedCommand redirected_command(Parser *p, Lexer *l);
 Command get_command(Parser *p, Lexer *l);
-Word get_word();
 
 
 void reset_parser(Parser *parser);
+void init_parser(Parser *p, Lexer *l);
+void handle_incomplete_token(Parser *p);
 
 
 Token peek(Parser *p);
 Token consume(Parser *p, Lexer *l);
 
+Token strip_quotes(Token t);
 #endif

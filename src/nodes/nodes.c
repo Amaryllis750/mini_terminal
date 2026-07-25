@@ -77,3 +77,24 @@ void free_tree(SequencedCommand s){
 
     return ;
 }
+
+
+Token create_empty_token(){
+    return (Token) {TOK_NONE, NULL, -1};
+}
+
+Command init_command(){
+    return (Command) {create_empty_token(), NULL, 0};
+}
+
+RedirectedCommand init_rcommand(){
+    return (RedirectedCommand) {init_command(), NULL, 0};
+}
+
+PipedCommand init_pcommand(){
+    return (PipedCommand) {init_rcommand(), NULL, 0};
+}
+
+SequencedCommand init_scommand(){
+    return (SequencedCommand) {init_pcommand(), NULL, 0};
+}

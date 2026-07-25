@@ -1,11 +1,4 @@
 {
-sequencedCommand: {
-pipedCommand: {
-redirectedCommand: {command: {program: {tord: {value: "dsjklj",position: 1}},args: [{tord: {value: "sdfkj",position: 8}}]},redirectedArray: [{token: {value: ">", position: 14},tord: {value: "sdlj",position: 16}}]},pipedArray: [
-{token: {value: "|", position: 21},redirectedCommand: {command: {program: {tord: {value: "dslkjf",position: 23}}}}}]
-},sequencedArray: [
-{token: {value: ";", position: 30},pipedCommand: {
-redirectedCommand: {command: {program: {tord: {value: "jddsf
-",position: 32}}}}}}]
-}
+"pipedCommand": {
+"redirectedCommand": {"command": {"program": {"token": {"value": "daniel","position": 1}},"args": [{"token": {"value": "is","position": 8}},{"token": {"value": "alright","position": 11}}]}}}
 }

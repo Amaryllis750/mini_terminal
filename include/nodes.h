@@ -53,10 +53,18 @@ typedef struct {
 } SequencedCommand;
 
 
+// free functions
 void free_token(Token w);
 void free_command(Command c);
 void free_redirected_command(RedirectedCommand r);
 void free_piped_command(PipedCommand p);
 void free_tree(SequencedCommand s);
+
+// helper functions
+Token create_empty_token();
+Command init_command();
+RedirectedCommand init_rcommand();
+PipedCommand init_pcommand();
+SequencedCommand init_scommand();
 
 #endif

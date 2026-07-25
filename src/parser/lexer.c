@@ -11,7 +11,8 @@ void lexer_init(Lexer *lexer, char *input)
     lexer->start = 0;
 }
 
-void reset_lexer(Lexer *l){
+void reset_lexer(Lexer *l)
+{
     free(l->input);
     l->pos = 0;
 }
@@ -27,27 +28,33 @@ Token get_next_token(Lexer *lexer)
 
     if (lexer->input[lexer->pos] == '\0')
         return (Token){TOK_EOF, "\0", lexer->pos};
-    
-    if(lexer->input[lexer->pos] == '\n'){
+
+    if (lexer->input[lexer->pos] == '\n')
+    {
         Token new_line = {TOK_NEWLINE, "\n", lexer->pos};
         lexer->pos++;
         return new_line;
     }
-        
 
     // tokenize quoted words
-    if (lexer->input[lexer->pos] == '"' || lexer->input[lexer->pos] == '\'') {
+    if (lexer->input[lexer->pos] == '"' || lexer->input[lexer->pos] == '\'')
+    {
         char quote = lexer->input[lexer->pos];
 
-        do{
+        do
+        {
             lexer->pos++;
-        }
-        while (lexer->input[lexer->pos] != quote && lexer->input[lexer->pos] != '\0');
+        } while (lexer->input[lexer->pos] != quote && lexer->input[lexer->pos] != '\0');
 
         // verify that the quote was closed with the same kind
-        if (lexer->input[lexer->pos] != quote) {
+        if (lexer->input[lexer->pos] != quote)
+        {
             lexer->err = "Unexpected token here, missing an ending quote";
-            return (Token){INCOMPLETE_TOKEN, NULL, lexer->pos, };
+            return (Token){
+                INCOMPLETE_TOKEN,
+                NULL,
+                lexer->pos,
+            };
         }
 
         lexer->pos++; // skip the closing quote
@@ -55,46 +62,53 @@ Token get_next_token(Lexer *lexer)
         char *token_value = strndup(lexer->input + lexer->start, length); // remember to free all these
 
         Token t = {0};
-        t.type     = (quote == '"') ? TOK_DOUBLE_QUOTED_WORD : TOK_SINGLE_QUOTED_WORD;
-        t.value    = token_value;
+        t.type = (quote == '"') ? TOK_DOUBLE_QUOTED_WORD : TOK_SINGLE_QUOTED_WORD;
+        t.value = token_value;
         t.position = lexer->start + 1;
         return t;
     }
 
     // consume until whitespace or end of input or tab
-    while (lexer->input[lexer->pos] != ' '  &&
+    while (lexer->input[lexer->pos] != ' ' &&
            lexer->input[lexer->pos] != '\t' &&
-           lexer->input[lexer->pos] != '\0')
+           lexer->input[lexer->pos] != '\0' &&
+           lexer->input[lexer->pos] != '\n')
         lexer->pos++;
 
     int length = lexer->pos - lexer->start;
-    char *token_value = strndup(lexer->input + lexer->start, length);   // remember to free all this
+    char *token_value = strndup(lexer->input + lexer->start, length); // remember to free all this
 
     Token t = {0};
     t.position = lexer->start + 1;
 
-    if (strcmp(token_value, "|") == 0) {
-        t.type  = TOK_PIPE;
+    if (strcmp(token_value, "|") == 0)
+    {
+        t.type = TOK_PIPE;
     }
-    else if (strcmp(token_value, ">") == 0) {
-        t.type  = TOK_REDIRECT_STDOUT;
+    else if (strcmp(token_value, ">") == 0)
+    {
+        t.type = TOK_REDIRECT_STDOUT;
     }
-    else if (strcmp(token_value, "<") == 0) {
-        t.type  = TOK_REDIRECT_STDIN;
+    else if (strcmp(token_value, "<") == 0)
+    {
+        t.type = TOK_REDIRECT_STDIN;
     }
-    else if (strcmp(token_value, "2>") == 0) {
-        t.type  = TOK_REDIRECT_STDERR;
+    else if (strcmp(token_value, "2>") == 0)
+    {
+        t.type = TOK_REDIRECT_STDERR;
     }
-    else if (strcmp(token_value, ">>") == 0) {
-        t.type  = TOK_APPEND;
+    else if (strcmp(token_value, ">>") == 0)
+    {
+        t.type = TOK_APPEND;
     }
-    else if (strcmp(token_value, ";") == 0) {
-        t.type  = TOK_SEQUENCE;
+    else if (strcmp(token_value, ";") == 0)
+    {
+        t.type = TOK_SEQUENCE;
     }
-    else {
-        t.type  = TOK_BARE_WORD;
+    else
+    {
+        t.type = TOK_BARE_WORD;
     }
-
 
     t.value = token_value;
     return t;
