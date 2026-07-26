@@ -247,7 +247,7 @@ void init_parser(Parser *p, Lexer *l)
 void handle_incomplete_token(Parser *p)
 {
     p->error = PARSER_ERR_MISSING_VALUE;
-    p->err_msg = strdup("Incomplete Token");
+    p->err_msg = "Incomplete Token";
     p->err_token = &p->current_token;
     p->mode = PS2;
 }
