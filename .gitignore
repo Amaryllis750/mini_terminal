@@ -4,3 +4,7 @@ build/
 
 # all .exe files
 /**/*.exe
+
+
+# all json files in the root folder
+*.json

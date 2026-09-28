@@ -1,4 +1,1 @@
 {
-"pipedCommand": {
-"redirectedCommand": {"command": {"program": {"token": {"value": "daniel","position": 1}},"args": [{"token": {"value": "is","position": 8}},{"token": {"value": "alright","position": 11}}]}}}
-}

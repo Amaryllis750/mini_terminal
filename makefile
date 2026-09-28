@@ -14,9 +14,9 @@ OBJS := $(patsubst $(SRC)/%.c, $(BUILD)/%.o, $(SRCS))
 
 # 3. Set the default target to build all those objects
 main: $(OBJS)
-	$(CC) $^ -o $(BIN)/$@
+	$(CC) $(CCFLAGS) -fsanitize=address $^ -o $(BIN)/$@
 
-test: $(wildcard $(SRC)/**/parser.c) $(wildcard $(SRC)/**/lexer.c) $(wildcard $(SRC)/**/nodes.c) test/test.c test/serialize.c
+test: $(wildcard $(SRC)/**/parser.c) $(wildcard $(SRC)/**/lexer.c) $(wildcard $(SRC)/**/nodes.c) $(wildcard $(SRC)/**/execution_engine.c) test/test.c test/serialize.c test/engine_serializer.c
 	$(CC) $(CCFLAGS) -fsanitize=address $^ -o bin/test
 
 $(BUILD)/%.o: $(SRC)/%.c

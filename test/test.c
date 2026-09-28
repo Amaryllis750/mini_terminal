@@ -7,6 +7,8 @@
 #include "lexer.h"
 #include "serialize.h"
 #include "test.h"
+#include "engine_serializer.h"
+#include "execution_engine.h"
 
 TestCase test_cases[] = {
     {"echo daniel", COMMAND_INPUT, {PS1, PARSER_OK, NULL}},
@@ -185,7 +187,18 @@ static int run_custom_test(void)
     {
         SequencedCommand scommand = sequence_command(&parser, &lexer);
         serialize_scommand(scommand, out_stream);
+
+        ExecutionNode **node = execute_tree(scommand);
+        char *result = serialize_execution_tree(node, scommand.s_array_size + 1);
+        FILE *out_file = fopen("execution_node_serialized.json", "w");
+        if (out_file != NULL)
+        {
+            fprintf(out_file, "%s", result);
+            fclose(out_file);
+        }
+
         free_tree(scommand);
+        free(result);
         break;
     }
     case PIPED_COMMAND_INPUT:
