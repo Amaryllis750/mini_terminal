@@ -115,3 +115,21 @@ ExecutionNode** execute_tree(SequencedCommand s)
     
     return e_array;
 }
+
+
+void free_execution_node_array(ExecutionNode **n, int size){
+    int i;
+    for(i = 0; i < size; i++){
+        ExecutionNode* node = n[i];
+        free_execution_node(node);
+    }
+
+    free(n);
+}
+
+void free_execution_node(ExecutionNode *n){
+    while(n -> next != NULL){
+        free_execution_node(n->next);
+    }
+    free(n);
+}

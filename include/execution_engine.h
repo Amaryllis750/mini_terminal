@@ -37,4 +37,7 @@ ExecutionNode* generate_empty_node(Command cmd);
 ExecutionNode* get_exec_node(PipedCommand p);
 ExecutionNode** execute_tree(SequencedCommand s);
 
+void free_execution_node_array(ExecutionNode **n, int size);
+void free_execution_node(ExecutionNode *n);
+
 #endif

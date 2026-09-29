@@ -144,11 +144,11 @@ static int run_custom_test(void)
     Lexer lexer = {NULL, 0, 0, NULL};
 
     printf("Enter you input: ");
-    char input[1024];
-    if (!fgets(input, sizeof(input), stdin))
-    {
-        return 1;
-    }
+    char input[1024] = "echo daniel > daniel.txt";
+    // if (!fgets(input, sizeof(input), stdin))
+    // {
+    //     return 1;
+    // }
 
     lexer_init(&lexer, input);
 
@@ -167,11 +167,11 @@ static int run_custom_test(void)
     puts("4. Command");
 
     char choice[8];
-    if (!fgets(choice, sizeof(choice), stdin))
-    {
-        fclose(out_stream);
-        return 1;
-    }
+    // if (!fgets(choice, sizeof(choice), stdin))
+    // {
+    //     fclose(out_stream);
+    //     return 1;
+    // }
 
     int choice_int = atoi(choice);
     if (choice_int == 0)
@@ -180,6 +180,7 @@ static int run_custom_test(void)
         fclose(out_stream);
         return 1;
     }
+    choice_int = 1;
 
     switch (choice_int)
     {
@@ -198,6 +199,7 @@ static int run_custom_test(void)
         }
 
         free_tree(scommand);
+        free_execution_node_array(node, scommand.s_array_size);
         free(result);
         break;
     }
@@ -246,12 +248,13 @@ int main(void)
     puts("2. Custom test");
 
     char mode_choice[8];
-    if (!fgets(mode_choice, sizeof(mode_choice), stdin))
-    {
-        return 1;
-    }
+    // if (!fgets(mode_choice, sizeof(mode_choice), stdin))
+    // {
+    //     return 1;
+    // }
 
     int mode_choice_int = atoi(mode_choice);
+    mode_choice_int = 2;
     switch (mode_choice_int)
     {
     case 1:
