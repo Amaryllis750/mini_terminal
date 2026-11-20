@@ -145,10 +145,10 @@ static int run_custom_test(void)
 
     printf("Enter you input: ");
     char input[1024] = "echo daniel > daniel.txt";
-    // if (!fgets(input, sizeof(input), stdin))
-    // {
-    //     return 1;
-    // }
+    if (!fgets(input, sizeof(input), stdin))
+    {
+        return 1;
+    }
 
     lexer_init(&lexer, input);
 
@@ -167,11 +167,11 @@ static int run_custom_test(void)
     puts("4. Command");
 
     char choice[8];
-    // if (!fgets(choice, sizeof(choice), stdin))
-    // {
-    //     fclose(out_stream);
-    //     return 1;
-    // }
+    if (!fgets(choice, sizeof(choice), stdin))
+    {
+        fclose(out_stream);
+        return 1;
+    }
 
     int choice_int = atoi(choice);
     if (choice_int == 0)
@@ -180,7 +180,7 @@ static int run_custom_test(void)
         fclose(out_stream);
         return 1;
     }
-    choice_int = 1;
+    // choice_int = 1;
 
     switch (choice_int)
     {
@@ -190,17 +190,20 @@ static int run_custom_test(void)
         serialize_scommand(scommand, out_stream);
 
         ExecutionNode **node = execute_tree(scommand);
-        char *result = serialize_execution_tree(node, scommand.s_array_size + 1);
-        FILE *out_file = fopen("execution_node_serialized.json", "w");
-        if (out_file != NULL)
-        {
-            fprintf(out_file, "%s", result);
-            fclose(out_file);
-        }
+        // char *result = serialize_execution_tree(node, scommand.s_array_size + 1);
+        // FILE *out_file = fopen("execution_node_serialized.json", "w");
+        FILE *out_file = fopen("tree.json", "w");
+        serialize_scommand(scommand, out_file);
+        // if (out_file != NULL)
+        // {
+        //     fprintf(out_file, "%s", result);
+        //     fclose(out_file);
+        // }
 
         free_tree(scommand);
         free_execution_node_array(node, scommand.s_array_size);
-        free(result);
+        fclose(out_file);
+        // free(result);
         break;
     }
     case PIPED_COMMAND_INPUT:
@@ -248,10 +251,10 @@ int main(void)
     puts("2. Custom test");
 
     char mode_choice[8];
-    // if (!fgets(mode_choice, sizeof(mode_choice), stdin))
-    // {
-    //     return 1;
-    // }
+    if (!fgets(mode_choice, sizeof(mode_choice), stdin))
+    {
+        return 1;
+    }
 
     int mode_choice_int = atoi(mode_choice);
     mode_choice_int = 2;

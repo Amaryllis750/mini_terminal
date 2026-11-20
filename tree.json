@@ -1,1 +1,5 @@
 {
+"sequencedCommand": {
+"pipedCommand": {
+"redirectedCommand": {"command": {"program": {"token": {"value": "echo","position": 1}},"args": [{"token": {"value": "daniel","position": 6}}]},"redirectedArray": [{"token": {"value": ">", "position": 13},"token": {"value": "text.txt","position": 15}}]}}}
+}
